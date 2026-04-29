@@ -24,6 +24,13 @@ export default class ExtraLinePlugin extends Plugin {
         const cursor = editor.getCursor();
         const lineContent = editor.getLine(cursor.line) ?? "";
 
+        // 匹配开头可能包含空格，接着是 -, *, + 或者数字加点，且后面跟一个空格的行
+        const isListItem = /^\s*([-*+]|\d+\.)\s/.test(lineContent);
+        // 如果当前行是分点/列表，直接跳出我们的逻辑，让 Obsidian 使用默认的列表换行行为
+        if (isListItem) {
+          return;
+        }
+
         const isAtLineEnd = cursor.ch === lineContent.length;
         const isAtEmptyLine = lineContent.trim().length === 0;
 

@@ -1,0 +1,22 @@
+{
+  "name": "extraline",
+  "version": "1.0.0",
+  "description": "use enter at the end of the file, it will create a new line automatically",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production",
+    "copy": "node copy.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "anaouse",
+  "license": "MIT",
+  "devDependencies": {
+    "@codemirror/view": "^6.41.1",
+    "@types/node": "^25.6.0",
+    "esbuild": "^0.28.0",
+    "obsidian": "^1.12.3",
+    "typescript": "^6.0.3"
+  }
+}

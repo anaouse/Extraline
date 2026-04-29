@@ -1,0 +1,5 @@
+var c=Object.defineProperty;var d=Object.getOwnPropertyDescriptor;var y=Object.getOwnPropertyNames;var f=Object.prototype.hasOwnProperty;var g=(r,e)=>{for(var i in e)c(r,i,{get:e[i],enumerable:!0})},h=(r,e,i,n)=>{if(e&&typeof e=="object"||typeof e=="function")for(let t of y(e))!f.call(r,t)&&t!==i&&c(r,t,{get:()=>e[t],enumerable:!(n=d(e,t))||n.enumerable});return r};var m=r=>h(c({},"__esModule",{value:!0}),r);var w={};g(w,{default:()=>o});module.exports=m(w);var s=require("obsidian"),o=class extends s.Plugin{async onload(){this.registerDomEvent(document,"keydown",e=>{var l;if(e.key!=="Enter"||e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;let i=this.app.workspace.getActiveViewOfType(s.MarkdownView);if(!i)return;let n=i.editor,t=n.getCursor(),a=(l=n.getLine(t.line))!=null?l:"",p=t.ch===a.length,u=a.trim().length===0;p&&(e.preventDefault(),e.stopPropagation(),u?(n.replaceRange(`
+
+`,t),n.setCursor({line:t.line+1,ch:0})):(n.replaceRange(`
+
+`,t),n.setCursor({line:t.line+2,ch:0})))},{capture:!0})}};

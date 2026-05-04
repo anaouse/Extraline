@@ -5,8 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "node esbuild.config.mjs production",
-    "copy": "node copy.js"
+    "build": "node esbuild.config.mjs production && node copy.js"
   },
   "type": "module",
   "keywords": [],

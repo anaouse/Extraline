@@ -22,6 +22,10 @@ export default class ExtraLinePlugin extends Plugin {
         const editor = view.editor;
 
         const cursor = editor.getCursor();
+
+        // Do not intercept Enter on the title line (first line)
+        if (cursor.line === 0) return;
+
         const lineContent = editor.getLine(cursor.line) ?? "";
 
         // 匹配开头可能包含空格，接着是 -, *, + 或者数字加点，且后面跟一个空格的行

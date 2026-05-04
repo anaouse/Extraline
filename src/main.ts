@@ -1,4 +1,4 @@
-import { Plugin, MarkdownView, Notice } from "obsidian";
+import { Plugin, MarkdownView, Notice, Editor } from "obsidian";
 
 export default class ExtraLinePlugin extends Plugin {
   async onload() {
@@ -25,6 +25,14 @@ export default class ExtraLinePlugin extends Plugin {
 
         // Do not intercept Enter on the title line (first line)
         if (cursor.line === 0) return;
+
+        // Do not intercept Enter in or on a fenced code block (```...```)
+        if (
+          /^\s*```/.test(editor.getLine(cursor.line) ?? "") ||
+          isInsideCodeBlock(editor, cursor.line)
+        ) {
+          return;
+        }
 
         const lineContent = editor.getLine(cursor.line) ?? "";
 
@@ -68,4 +76,14 @@ export default class ExtraLinePlugin extends Plugin {
       { capture: true },
     );
   }
+}
+
+function isInsideCodeBlock(editor: Editor, line: number): boolean {
+  let fenceCount = 0;
+  for (let i = 0; i < line; i++) {
+    if (/^\s*```/.test(editor.getLine(i))) {
+      fenceCount++;
+    }
+  }
+  return fenceCount % 2 === 1;
 }
